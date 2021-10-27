@@ -1,0 +1,1 @@
+echo "*/5 * * * * root bash ./nginx_script.sh" >> /etc/crontab
