@@ -81,6 +81,3 @@ copy_config_file
 # predefined (section i) with additional restart
 # after config update.
 pgrep -x nginx >/dev/null && echo "Nginx running" || run_nginx
-
-# iv. Script should add it self to cron for execution
-# each 5 minutes

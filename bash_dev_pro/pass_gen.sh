@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# you should install pwgen
+# sudo apt install pwgen -y
+
 PASS_LENGTH=$1
 SPECIAL_CHARACTERS=$2
 

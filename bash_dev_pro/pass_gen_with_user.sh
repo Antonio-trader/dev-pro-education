@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# you should install pwgen
+# sudo apt install pwgen -y
+
 read -p "How long password do you want to have?  " PASS_LENGTH
 read -p "Do you want to use special characters? y/n  " SPECIAL_CHARACTERS
 
