@@ -1,0 +1,12 @@
+# Launch instance in Public 1A
+aws ec2 run-instances --image-id ami-058e6df85cfc7760b --instance-type t2.micro --security-group-ids sg-074e015748df06a3a --subnet-id subnet-0732db0f358a1a655 --key-name Dnipro-KP --user-data file://startup_script.sh
+
+# Launch instance in Public 1B
+aws ec2 run-instances --image-id ami-058e6df85cfc7760b --instance-type t2.micro --security-group-ids sg-074e015748df06a3a --subnet-id subnet-076a2bb83efae3529 --key-name Dnipro-KP --user-data file://startup_script.sh
+
+# Launch instance in Privat 1B
+aws ec2 run-instances --image-id ami-058e6df85cfc7760b --instance-type t2.micro --security-group-ids sg-074e015748df06a3a --subnet-id subnet-0218ce61fd5e38909 --key-name Dnipro-KP --user-data file://startup_script.sh
+
+# Terminate instances
+aws ec2 terminate-instances --instance-ids "i-04ec8cfd93a3f30ec"
+
