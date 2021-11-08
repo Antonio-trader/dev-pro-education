@@ -21,6 +21,9 @@ resource "aws_security_group" "ssh-http-allowed" {
     to_port           = 80
     cidr_blocks       = ["0.0.0.0/0"]
   }
+  tags = {
+    Name = "Security group for myAdmin"
+  }
 }
 
 
