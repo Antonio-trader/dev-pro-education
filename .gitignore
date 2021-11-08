@@ -1,2 +1,5 @@
 *test*
 *.csv
+.terraform
+*.terraform.*
+terraform*
