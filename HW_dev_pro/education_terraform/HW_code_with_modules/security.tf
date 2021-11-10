@@ -9,13 +9,6 @@ resource "aws_security_group" "ssh-http-allowed" {
   }
 
   ingress {
-    from_port = -1
-    protocol  = "icmp"
-    to_port   = -1
-    cidr_blocks       = ["0.0.0.0/0"]
-  }
-
-  ingress {
     from_port         = 22
     protocol          = "tcp"
     to_port           = 22
