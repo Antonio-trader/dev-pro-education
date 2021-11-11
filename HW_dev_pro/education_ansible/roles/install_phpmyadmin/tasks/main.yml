@@ -1,0 +1,41 @@
+---
+
+- name: Copy file for permissions
+  ansible.builtin.copy:
+    src: templates/permission.sh
+    dest: /tmp
+    owner: ec2-user
+    group: ec2-user
+    mode: '0777'
+
+- name: Add permissions
+  become: yes
+  command: sh /tmp/permission.sh
+
+- name: Install PhpMyadmin
+  command: sudo yum install php-mbstring php-xml -y
+  notify: nginx_restart
+  when:
+    - { ansible_distribution == "Amazon" }
+
+- name: Restart php_fpm
+  command: hostname
+  notify: php_fpm_restart
+
+- name: Download PhpMyAdmin
+  command: "wget {{ url_phpmyadmin }} -P {{ dest_dir }}"
+
+- name: Make directory for phpMyadmin
+  ansible.builtin.file:
+    path: "{{ dest_dir }}/phpMyAdmin"
+    state: directory
+    owner: ec2-user
+    group: www
+    mode: '0777'
+
+- name: Unpact phpMyadmin
+  command: "tar -xvzf {{ dest_dir }}/{{ php_distr }} -C {{ dest_dir }}/phpMyAdmin --strip-components 1"
+  notify: nginx_restart
+
+- name: Delete distributive of phpMyadmin
+  command: rm "{{ dest_dir }}/{{ php_distr }}"

@@ -1,0 +1,36 @@
+---
+
+- name: Install Nginx on Amazon Linux
+  become: yes
+  hosts: all
+  tasks:
+    - name: Install nginx from amazon-linux-extras to Amazon Linux
+      command: amazon-linux-extras install -y nginx1
+      notify: nginx_systemd
+
+#  handlers:
+#    - name: nginx_systemd
+#      service:
+#        name: nginx
+#        enabled: yes
+#        state: started
+#
+#
+#- name: Copy file with permissions
+#  hosts: back
+#  tasks:
+#    - name: Copy file with permissions
+#      ansible.builtin.copy:
+#        src: templates/permission.sh
+#        dest: /tmp
+#        owner: ec2-user
+#        group: ec2-user
+#        mode: '0777'
+#
+#
+#- name: Install permissions
+#  become: yes
+#  hosts: back
+#  tasks:
+#    - name: Run file with permissions
+#      command: sh /tmp/permission.sh
