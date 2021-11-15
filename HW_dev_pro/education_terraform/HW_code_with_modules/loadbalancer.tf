@@ -53,7 +53,8 @@ resource "aws_lb_target_group" "application" {
 resource "aws_lb_target_group_attachment" "nginx2" {
   for_each         = toset(["app_server", "app_server_2"])
   target_group_arn = aws_lb_target_group.application.arn
-  target_id        = module.ec2_instance[each.key].app_server.id
+#  target_id        = ec2_name.ec2.id
+  target_id        = aws_instance
   port             = 80
   depends_on = [module.ec2_instance]
 }

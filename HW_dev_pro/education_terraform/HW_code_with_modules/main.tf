@@ -7,7 +7,7 @@ module "ec2_instance" {
   source                 = "./modules/ec2_instance"
 
   for_each               = toset(["app_server", "app_server_2"])
-#  name                   = "${each.key}"
+  name                   = "${each.key}"
 
   ami                    = var.image_id
   instance_type          = var.instance_type
@@ -15,6 +15,8 @@ module "ec2_instance" {
   subnet_id              = aws_subnet.public_1a.id
   vpc_security_group_ids = ["${aws_security_group.ssh-http-allowed.id}"]
   key_name               = var.key_name
+
+
 
 #  tags = {
 #    Name = "${each.key}"
@@ -65,4 +67,8 @@ resource "aws_instance" "myadmin" {
 
 output "load_balancer_name" {
   value = aws_lb.alb.dns_name
+}
+
+output "ec2_name" {
+  value = module.ec2_instance.ec2
 }

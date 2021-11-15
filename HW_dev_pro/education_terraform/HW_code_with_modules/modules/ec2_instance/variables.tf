@@ -2,9 +2,9 @@ variable "ami" {
   type = string
 }
 
-#variable "name" {
-#  type = map(string)
-#}
+variable "name" {
+  type = map(string)
+}
 
 variable "instance_type" {
   type = string
