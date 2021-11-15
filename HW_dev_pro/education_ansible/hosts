@@ -1,0 +1,13 @@
+[front]
+3.69.241.118
+
+[back]
+3.64.55.221
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/home/local/DO/anton.lukashov/Downloads/AWS_keypair/Dnipro-KP.pem
+ansible_python_interpreter=/usr/bin/python
+
+
