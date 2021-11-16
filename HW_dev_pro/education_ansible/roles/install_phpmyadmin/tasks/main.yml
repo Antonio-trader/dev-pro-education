@@ -1,41 +1,66 @@
 ---
 
-- name: Copy file for permissions
-  ansible.builtin.copy:
-    src: templates/permission.sh
-    dest: /tmp
-    owner: ec2-user
-    group: ec2-user
-    mode: '0777'
+- name: Create '{{ group }}' group
+  ansible.builtin.group:
+    name: '{{ group }}'
+    state: present
 
-- name: Add permissions
+- name: Add the user '{{ user }}' to the group '{{ group }}'
+  ansible.builtin.user:
+    name: '{{ user }}'
+    groups: '{{ group }}'
+    append: yes
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: '{{ dest_dir }}'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '2775'
+
+- name: Install a list of packages (php-mbstring php-xml)
   become: yes
-  command: sh /tmp/permission.sh
-
-- name: Install PhpMyadmin
-  command: sudo yum install php-mbstring php-xml -y
-  notify: nginx_restart
+  yum:
+    name:
+      - php-mbstring
+      - php-xml
+    state: present
+  notify:
+    - nginx_restart
+    - php_fpm_restart
   when:
     - { ansible_distribution == "Amazon" }
 
-- name: Restart php_fpm
-  command: hostname
-  notify: php_fpm_restart
+- name: Make directory for download
+  ansible.builtin.file:
+    path: '{{ dir_for_download }}'
+    state: directory
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '0775'
 
-- name: Download PhpMyAdmin
-  command: "wget {{ url_phpmyadmin }} -P {{ dest_dir }}"
+- name: Unarchive a file that needs to be downloaded
+  ansible.builtin.unarchive:
+    src: '{{ url_phpmyadmin }}'
+    dest: '{{ dir_for_download }}'
+    remote_src: yes
 
 - name: Make directory for phpMyadmin
   ansible.builtin.file:
-    path: "{{ dest_dir }}/phpMyAdmin"
+    path: '{{ dest_dir }}/phpMyAdmin'
     state: directory
-    owner: ec2-user
-    group: www
-    mode: '0777'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '0775'
 
-- name: Unpact phpMyadmin
-  command: "tar -xvzf {{ dest_dir }}/{{ php_distr }} -C {{ dest_dir }}/phpMyAdmin --strip-components 1"
-  notify: nginx_restart
+- name: Copy files to phpMyAdmin directory
+  ansible.builtin.shell: 'cp -r {{ dir_for_download }}/{{ pattern }}/* {{ dest_dir }}/phpMyAdmin'
+  args:
+    executable: /bin/bash
+  notify:
+    - nginx_restart
 
-- name: Delete distributive of phpMyadmin
-  command: rm "{{ dest_dir }}/{{ php_distr }}"
+- name: Delete phpMyAdmin from /tmp
+  file:
+    state: absent
+    path: '{{ dir_for_download }}'
