@@ -26,7 +26,7 @@ resource "aws_instance" "app_server_2" {
   associate_public_ip_address = true
 
   tags = {
-    Name                      = "app_server_2"
+    Name                      = "app_server"
   }
 }
 

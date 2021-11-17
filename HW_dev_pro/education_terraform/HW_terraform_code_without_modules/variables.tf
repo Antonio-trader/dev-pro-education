@@ -4,6 +4,11 @@ variable "image_id" {
   default         = "ami-047e03b8591f2d48a"
 }
 
+variable "bastion_image_id" {
+  type            = string
+  default         = "ami-0a49b025fffbbdac6"
+}
+
 variable "instance_type" {
   type            = string
   default         = "t2.micro"
