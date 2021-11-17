@@ -31,20 +31,6 @@
   when:
     - { ansible_distribution == "Amazon" }
 
-- name: Make directory for download
-  ansible.builtin.file:
-    path: '{{ dir_for_download }}'
-    state: directory
-    owner: '{{ user }}'
-    group: '{{ group }}'
-    mode: '0775'
-
-- name: Unarchive a file that needs to be downloaded
-  ansible.builtin.unarchive:
-    src: '{{ url_phpmyadmin }}'
-    dest: '{{ dir_for_download }}'
-    remote_src: yes
-
 - name: Make directory for phpMyadmin
   ansible.builtin.file:
     path: '{{ dest_dir }}/phpMyAdmin'
@@ -53,14 +39,9 @@
     group: '{{ group }}'
     mode: '0775'
 
-- name: Copy files to phpMyAdmin directory
-  ansible.builtin.shell: 'cp -r {{ dir_for_download }}/{{ pattern }}/* {{ dest_dir }}/phpMyAdmin'
-  args:
-    executable: /bin/bash
-  notify:
-    - nginx_restart
-
-- name: Delete phpMyAdmin from /tmp
-  file:
-    state: absent
-    path: '{{ dir_for_download }}'
+- name: Unarchive a file that needs to be downloaded
+  ansible.builtin.unarchive:
+    src: '{{ url_phpmyadmin }}'
+    dest: '{{ dest_dir }}/phpMyAdmin'
+    remote_src: yes
+    extra_opts: [--strip-components=1]

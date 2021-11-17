@@ -8,7 +8,7 @@
       tags: nginx
 
 - name: Install MariaDB
-  hosts: tag_name_PROD
+  hosts: tag_name_back
   become: yes
   become_method: sudo
   roles:
