@@ -1,3 +1,12 @@
+resource "cloudflare_record" "set-lb-cname" {
+  zone_id                     = var.zone_id
+  name                        = "@"
+  value                       = aws_lb.alb.dns_name
+  type                        = "CNAME"
+  ttl                         = "1"
+  proxied                     = "true"
+}
+
 resource "aws_lb" "alb" {
   name                        = "alb"
   internal                    = false

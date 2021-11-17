@@ -9,6 +9,21 @@ variable "bastion_image_id" {
   default         = "ami-0a49b025fffbbdac6"
 }
 
+variable "zone_id" {
+  type            = string
+  default         = "1fbc7073a64e53e845e73af239389e74"
+}
+
+variable "email" {
+  type            = string
+  default         = "anton001000@gmail.com"
+}
+
+variable "cloudflare_api_key" {
+  type            = string
+  default         = "c1eb6e696ac6671a2d289344b5ff9dfac992d"
+}
+
 variable "instance_type" {
   type            = string
   default         = "t2.micro"

@@ -1,5 +1,28 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.27"
+    }
+cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
+
+  }
+
+  required_version = ">= 0.14.9"
+}
+
+
+
 provider "aws" {
   region          = var.region
+}
+
+provider "cloudflare" {
+  email           = var.email
+  api_key         = var.cloudflare_api_key
 }
 
 resource "aws_instance" "app_server" {
@@ -48,7 +71,7 @@ resource "aws_instance" "myadmin" {
 resource "aws_instance" "bastion" {
   ami                         = var.image_id
   instance_type               = var.instance_type
-#  user_data                   = file("bootstrap_for_back.sh")
+  user_data                   = file("scripts_for_bastion.sh")
   subnet_id                   = "${aws_subnet.public_1b.id}"
   vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
   key_name                    = var.key_name
