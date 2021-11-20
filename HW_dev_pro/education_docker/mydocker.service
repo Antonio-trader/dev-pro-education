@@ -1,0 +1,13 @@
+[Unit]
+Description=Run Docker containers with phpmyadmin, nginx and mysql
+Requires=docker.service
+After=docker.service
+
+[Service]
+User=ec2-user
+Group=docker
+WorkingDirectory=/home/ec2-user/education_docker
+ExecStart=/usr/local/bin/docker-compose up -d
+
+[Install]
+WantedBy=multi-user.target
