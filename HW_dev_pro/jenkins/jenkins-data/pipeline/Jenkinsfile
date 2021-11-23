@@ -1,0 +1,51 @@
+
+pipeline {
+    agent none
+
+    environment {
+        aws_secret = credentials('AWS_SECRET_KEY')
+        aws_id = credentials('AWS_ID_KEY')
+    }
+
+    stages {
+        stage ('Prepare instance for AWS') {
+        agent {
+            label 'Trinity'
+        }
+
+        steps {
+            sh 'export AWS_ACCESS_KEY_ID=$aws_id'
+            sh 'export AWS_SECRET_ACCESS_KEY=$aws_secret'
+            sh 'export AWS_DEFAULT_REGION=eu-central-1'
+            }
+        }
+
+        stage ('Install boto3') {
+        agent {
+            label 'Trinity'
+        }
+        steps {
+            sh 'pip3 install boto3'
+            }
+        }
+
+        stage ('Install git') {
+        agent {
+            label 'Trinity'
+        }
+        steps {
+            sh 'apt install git -y'
+            }
+        }
+
+        stage ('Download git repo') {
+        agent {
+            label 'Trinity'
+        }
+        steps {
+            sh 'git clone   -single_branch'
+            }
+        }
+
+    }
+}

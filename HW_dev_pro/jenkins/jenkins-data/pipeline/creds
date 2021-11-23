@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    environment {
+        aws_secret = credentials('AWS_SECRET_KEY')
+        aws_id = credentials('AWS_ID_KEY')
+    }
+
+    stages {
+        stage ('Build') {
+        steps {
+            sshagent(credentials: ['ssh-credentials']) {
+                sh 'ssh remote_user@remote_host'
+                sh 'echo $aws_secret'
+                sh 'echo $aws_id'
+                sh 'hostname'
+                sh 'whoami'
+              }
+            }
+        }
+    }
+}

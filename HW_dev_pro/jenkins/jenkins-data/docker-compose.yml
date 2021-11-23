@@ -1,0 +1,35 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins-ansible
+    build:
+      context: jenkins-ansible
+    ports:
+      - "8080:8080"
+    volumes:
+      - "$PWD/jenkins_home:/var/jenkins_home"
+    networks:
+      - net
+
+
+  remote_host:
+    container_name: remote-host
+    image: remote-host
+    build:
+      context: centos7
+    volumes:
+      - "$PWD/aws-s3.sh:/tmp/script.sh"
+    networks:
+      - net
+
+  ubuntu:
+    container_name: ubuntu
+    build:
+      context: ubuntu_20_04
+    volumes:
+      - "$PWD/ubuntu_20_04/data:/tmp/data"
+    networks:
+      - net
+networks:
+  net:
