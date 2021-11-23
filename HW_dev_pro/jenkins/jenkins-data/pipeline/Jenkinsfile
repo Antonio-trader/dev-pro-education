@@ -12,7 +12,6 @@ pipeline {
         agent {
             label 'Trinity'
         }
-
         steps {
             sh 'export AWS_ACCESS_KEY_ID=$aws_id'
             sh 'export AWS_SECRET_ACCESS_KEY=$aws_secret'
@@ -53,6 +52,7 @@ pipeline {
             label 'Trinity'
         }
         steps {
+            sh 'cat /root/git_repo/HW_dev_pro/education_ansible/aws_ec2.yml'
             sh 'ansible-galaxy collection install amazon.aws'
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-vault decrypt secret_key.pem --vault-password-file /tmp/test.txt || echo "The secret_key has already decrypted" '
             sh 'cat /root/git_repo/HW_dev_pro/education_ansible/secret_key.pem'
