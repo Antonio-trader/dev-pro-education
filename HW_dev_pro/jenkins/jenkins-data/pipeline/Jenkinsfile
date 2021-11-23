@@ -38,12 +38,23 @@ pipeline {
             }
         }
 
-        stage ('Download git repo') {
+        stage ('Pull git repo') {
         agent {
             label 'Trinity'
         }
         steps {
-            sh 'git clone   -single_branch'
+            sh 'cd /root/git_repo && git pull'
+            }
+        }
+
+        stage ('aws_cli') {
+        agent {
+            label 'Trinity'
+        }
+        steps {
+            sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-vault decrypt secret_key.pem --vault-password-file /tmp/test.txt || echo "The secret_key has already decrypted" '
+            sh 'cat /root/git_repo/HW_dev_pro/education_ansible/secret_key.pem'
+            sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-inventory -i aws_ec2.yml --list'
             }
         }
 

@@ -9,7 +9,8 @@ RUN   apt-get -q -y update; apt-get -q -y upgrade && \
       pip3 install ansible --upgrade && \
       mkdir /root/.ssh && \
       chmod 700 /root/.ssh && \
-      mkdir /var/run/sshd
+      mkdir /var/run/sshd && \
+      mkdir /root/git_repo
 
 RUN   apt install software-properties-common apt-transport-https -y && \
       add-apt-repository ppa:openjdk-r/ppa -y && \

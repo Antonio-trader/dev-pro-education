@@ -8,5 +8,5 @@ keyed_groups:
   - prefix: tag_name
     key: tags.Name
 
-compose:
-  ansible_host: private_ip_address
+#compose:
+#  ansible_host: private_ip_address
