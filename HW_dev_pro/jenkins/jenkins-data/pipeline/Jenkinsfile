@@ -26,6 +26,7 @@ pipeline {
         steps {
             sh 'pip3 install boto3'
             sh 'pip3 install botocore'
+            sh 'ansible-galaxy collection install amazon.aws'
             }
         }
 
@@ -52,10 +53,7 @@ pipeline {
             label 'Trinity'
         }
         steps {
-            sh 'cat /root/git_repo/HW_dev_pro/education_ansible/aws_ec2.yml'
-            sh 'ansible-galaxy collection install amazon.aws'
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-vault decrypt secret_key.pem --vault-password-file /tmp/test.txt || echo "The secret_key has already decrypted" '
-            sh 'cat /root/git_repo/HW_dev_pro/education_ansible/secret_key.pem'
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-inventory -i aws_ec2.yml --list'
             }
         }
