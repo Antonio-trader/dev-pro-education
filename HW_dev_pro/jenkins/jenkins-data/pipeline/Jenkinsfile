@@ -39,7 +39,5 @@ pipeline {
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-playbook -i aws_ec2.yml play.yml'
             }
         }
-
-
     }
 }
