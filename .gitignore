@@ -4,3 +4,15 @@
 *.terraform.*
 terraform*
 secret_key.pem
+.*terraforf
+terraform.*
+.bash.*
+.profile
+.config
+.local
+.gnoupg
+.ssh
+.vscode
+.idea
+remote-key
+*pem

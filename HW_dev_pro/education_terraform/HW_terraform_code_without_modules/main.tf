@@ -32,7 +32,8 @@ resource "aws_instance" "app_server" {
   subnet_id                   = "${aws_subnet.public_1a.id}"
   vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
   key_name                    = var.key_name
-  associate_public_ip_address = true
+#  associate_public_ip_address = true
+#  public_dns                  = true
 
   tags = {
     Name                      = "app_server"
@@ -46,7 +47,8 @@ resource "aws_instance" "app_server_2" {
   subnet_id                   = "${aws_subnet.public_1a.id}"
   vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
   key_name                    = var.key_name
-  associate_public_ip_address = true
+#  associate_public_ip_address = true
+#  public_dns                  = true
 
   tags = {
     Name                      = "app_server"
@@ -60,7 +62,8 @@ resource "aws_instance" "myadmin" {
   subnet_id                   = "${aws_subnet.public_1b.id}"
   vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
   key_name                    = var.key_name
-  associate_public_ip_address = true
+#  associate_public_ip_address = true
+#  public_dns                  = true
 
   tags = {
     Name                      = "myadmin"

@@ -3,26 +3,6 @@ pipeline {
     agent none
 
     stages {
-//         stage ('Install boto3') {
-//         agent {
-//             label 'Trinity'
-//         }
-//         steps {
-//             sh 'pip3 install boto3'
-//             sh 'pip3 install botocore'
-//             sh 'ansible-galaxy collection install amazon.aws'
-//             }
-//         }
-
-//         stage ('Install git') {
-//         agent {
-//             label 'Trinity'
-//         }
-//         steps {
-//             sh 'apt install git -y'
-//             }
-//         }
-
         stage ('Pull git repo') {
         agent {
             label 'Trinity'
@@ -38,7 +18,6 @@ pipeline {
         }
         steps {
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-vault decrypt secret_key.pem --vault-password-file /tmp/test.txt || echo "The secret_key has already decrypted" '
-//             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-inventory -i aws_ec2.yml --list'
             }
         }
 

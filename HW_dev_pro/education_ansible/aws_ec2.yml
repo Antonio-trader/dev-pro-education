@@ -7,7 +7,5 @@ keyed_groups:
   - prefix: tag_name
     key: tags.Name
 
-hostnames:
-  - dns-name
-#compose:
-#  ansible_host: private_ip_address
+compose:
+  ansible_host: public_ip_address

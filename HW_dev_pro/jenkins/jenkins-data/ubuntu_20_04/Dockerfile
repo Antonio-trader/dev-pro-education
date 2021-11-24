@@ -4,6 +4,7 @@ USER root
 
 RUN   apt-get -q -y update; apt-get -q -y upgrade && \
       apt-get -q -y install sudo openssh-server && \
+      apt install git -y && \
       apt install -y python3 && \
       apt install python3-pip -y && \
       pip3 install ansible --upgrade && \
