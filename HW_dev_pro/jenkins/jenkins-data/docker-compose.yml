@@ -12,7 +12,6 @@ services:
     networks:
       - net
 
-
   remote_host:
     container_name: remote-host
     image: remote-host
