@@ -68,19 +68,19 @@ resource "aws_instance" "myadmin" {
 }
 
 
-resource "aws_instance" "bastion" {
-  ami                         = var.image_id
-  instance_type               = var.instance_type
-  user_data                   = file("scripts_for_bastion.sh")
-  subnet_id                   = "${aws_subnet.public_1b.id}"
-  vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
-  key_name                    = var.key_name
-  associate_public_ip_address = true
-
-  tags = {
-    Name                      = "bastion"
-  }
-}
+#resource "aws_instance" "bastion" {
+#  ami                         = var.image_id
+#  instance_type               = var.instance_type
+#  user_data                   = file("scripts_for_bastion.sh")
+#  subnet_id                   = "${aws_subnet.public_1b.id}"
+#  vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
+#  key_name                    = var.key_name
+#  associate_public_ip_address = true
+#
+#  tags = {
+#    Name                      = "bastion"
+#  }
+#}
 
 output "load_balancer_name" {
   value = aws_lb.alb.dns_name

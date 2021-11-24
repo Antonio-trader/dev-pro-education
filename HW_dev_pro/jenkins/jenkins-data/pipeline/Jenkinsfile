@@ -2,23 +2,7 @@
 pipeline {
     agent none
 
-    environment {
-        aws_secret = credentials('AWS_SECRET_KEY')
-        aws_id = credentials('AWS_ID_KEY')
-    }
-
     stages {
-        stage ('Prepare instance for AWS') {
-        agent {
-            label 'Trinity'
-        }
-        steps {
-            sh 'export AWS_ACCESS_KEY_ID=$aws_id'
-            sh 'export AWS_SECRET_ACCESS_KEY=$aws_secret'
-            sh 'export AWS_DEFAULT_REGION=eu-central-1'
-            }
-        }
-
         stage ('Install boto3') {
         agent {
             label 'Trinity'
@@ -54,6 +38,17 @@ pipeline {
         }
         steps {
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-vault decrypt secret_key.pem --vault-password-file /tmp/test.txt || echo "The secret_key has already decrypted" '
+            sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-inventory -i aws_ec2.yml --list'
+            }
+        }
+
+        stage ('terraform') {
+        agent {
+            label 'Trinity'
+        }
+        steps {
+            sh 'cd /root/git_repo/HW_dev_pro/education_terraform/HW_terraform_code_without_modules && terraform apply -auto-approve'
+            sh 'sleep 2m'
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-inventory -i aws_ec2.yml --list'
             }
         }
