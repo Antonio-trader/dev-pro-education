@@ -26,7 +26,7 @@ pipeline {
             label 'Trinity'
         }
         steps {
-            sh 'cd /root/git_repo/HW_dev_pro/education_terraform/HW_terraform_code_without_modules && terraform apply -auto-approve'
+            sh 'cd /root/git_repo/HW_dev_pro/education_terraform/blue-green && terraform apply -auto-approve'
             sh 'sleep 2m'
             }
         }
