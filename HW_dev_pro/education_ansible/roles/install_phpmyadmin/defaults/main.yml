@@ -5,3 +5,5 @@ user: ec2-user
 group: www
 pattern: phpMyAdmin*
 dir_for_download: /tmp/myadmin
+path_to_python_script: /root/git_repo/HW_dev_pro/education_ansible/roles/install_phpmyadmin/templates
+path_to_aws_ec_2: /root/git_repo/HW_dev_pro/education_ansible/aws_ec2.yml
