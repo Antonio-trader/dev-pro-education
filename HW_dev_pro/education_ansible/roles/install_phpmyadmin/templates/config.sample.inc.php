@@ -151,9 +151,3 @@ $cfg['SaveDir'] = '';
  * You can find more configuration options in the documentation
  * in the doc/ folder or at <https://docs.phpmyadmin.net/>.
  */
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs

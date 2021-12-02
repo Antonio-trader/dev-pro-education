@@ -21,21 +21,22 @@ pipeline {
             }
         }
 
-        stage ('terraform') {
-        agent {
-            label 'Trinity'
-        }
-        steps {
-            sh 'cd /root/git_repo/HW_dev_pro/education_terraform/blue-green && terraform apply -auto-approve'
-            sh 'sleep 2m'
-            }
-        }
+//         stage ('terraform') {
+//         agent {
+//             label 'Trinity'
+//         }
+//         steps {
+//             sh 'cd /root/git_repo/HW_dev_pro/education_terraform/blue-green && terraform apply -auto-approve'
+//             sh 'sleep 2m'
+//             }
+//         }
 
         stage ('Ansible') {
         agent {
             label 'Trinity'
         }
         steps {
+//             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-inventory -i aws_ec2.yml --list > /root/git_repo/HW_dev_pro/education_ansible/roles/install_phpmyadmin/templates/test.json'
             sh 'cd /root/git_repo/HW_dev_pro/education_ansible && ansible-playbook -i aws_ec2.yml play.yml'
             }
         }
