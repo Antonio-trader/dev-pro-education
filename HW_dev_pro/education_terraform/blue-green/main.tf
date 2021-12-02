@@ -96,3 +96,18 @@ resource "aws_instance" "myadmin_blue" {
   }
 }
 
+##############################
+###########   DB   ###########
+##############################
+
+resource "aws_instance" "db" {
+  ami                         = var.image_id
+  instance_type               = var.instance_type
+  subnet_id                   = "${aws_subnet.public_1b.id}"
+  vpc_security_group_ids      = ["${aws_security_group.ssh-http-allowed.id}"]
+  key_name                    = var.key_name
+
+  tags = {
+    Name                      = "db"
+  }
+}

@@ -9,7 +9,31 @@
   yum:
     name: mariadb-server
     state: present
-  notify:
-    MariaDB
   when:
     - { ansible_distribution == "Amazon" }
+
+
+- name: Start the MySQL service
+  action: service name=mariadb state=started
+
+
+- name: Install PHP FPM and dependencies
+  yum:
+    name: python-pip
+    state: latest
+
+# Install pymysql for py pip2
+
+- name: Install bottle python package
+  pip:
+    name: pymysql
+
+- name: update mysql root password for root account
+  mysql_user:
+    name: root
+    login_unix_socket: /var/lib/mysql/mysql.sock
+    host: '%'
+    password: "{{ mysql_root_password }}"
+    priv: "*.*:ALL,GRANT"
+    check_implicit_admin: true
+

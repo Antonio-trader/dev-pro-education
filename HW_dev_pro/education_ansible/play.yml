@@ -9,12 +9,18 @@
     - role: install_nginx
       tags: nginx
 
-- name: Install MariaDB
+- name: Install PhpMyAdmin
   hosts: tag_name_myadmin
+  become: yes
+  become_method: sudo
+  roles:
+    - role: install_phpmyadmin
+      tags: phpmyadmin
+
+- name: Install MariaDB
+  hosts: tag_name_db
   become: yes
   become_method: sudo
   roles:
     - role: install_mariadb
       tags: mariadb
-    - role: install_phpmyadmin
-      tags: phpmyadmin

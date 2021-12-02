@@ -18,6 +18,11 @@
     group: '{{ group }}'
     mode: '2775'
 
+- name: Install lamp-mariadb10.2-php7.2 and php7.2
+  command: sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+  when:
+    - { ansible_distribution == "Amazon" }
+
 - name: Install a list of packages (php-mbstring php-xml)
   become: yes
   yum:
