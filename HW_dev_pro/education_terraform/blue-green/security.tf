@@ -30,7 +30,7 @@ resource "aws_security_group" "ssh-http-allowed" {
   }
 
   ingress {
-    from_port         = 3307
+    from_port         = 3306
     protocol          = "tcp"
     to_port           = 3307
     cidr_blocks       = ["0.0.0.0/0"]
