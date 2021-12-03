@@ -17,6 +17,11 @@ provider "aws" {
   region          = var.region
 }
 
+provider "cloudflare" {
+  email           = var.email
+  api_key         = var.cloudflare_api_key
+}
+
 ##############################
 #   GREEN   #
 ##############################
