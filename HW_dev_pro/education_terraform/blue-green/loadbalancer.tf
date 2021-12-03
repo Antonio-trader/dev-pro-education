@@ -1,3 +1,13 @@
+resource "cloudflare_record" "set-lb-cname" {
+  zone_id = var.zone_id
+  name    = "@"
+  value   = var.color != "green" ? aws_lb.albGreen.dns_name : aws_lb.albBlue.dns_name
+  type    = "CNAME"
+  ttl     = "1"
+  proxied = "true"
+}
+
+
 resource "aws_lb" "albGreen" {
   name                        = "albGreen"
   internal                    = false

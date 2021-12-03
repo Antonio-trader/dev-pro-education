@@ -4,11 +4,13 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 3.27"
     }
+cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "~> 3.0"
+    }
   }
-
   required_version = ">= 0.14.9"
 }
-
 
 
 provider "aws" {
@@ -110,4 +112,12 @@ resource "aws_instance" "db" {
   tags = {
     Name                      = "db"
   }
+}
+
+output "load_balancer_name_blue" {
+  value = aws_lb.albBlue.dns_name
+}
+
+output "load_balancer_name_green" {
+  value = aws_lb.albGreen.dns_name
 }

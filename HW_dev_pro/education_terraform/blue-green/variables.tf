@@ -68,3 +68,7 @@ variable "name_for_alb" {
   type            = string
   default         = "alb_for_dev_pro"
 }
+
+variable "color" {
+  type            = string
+}

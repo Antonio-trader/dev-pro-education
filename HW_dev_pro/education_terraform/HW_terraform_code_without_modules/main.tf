@@ -8,12 +8,9 @@ cloudflare = {
       source = "cloudflare/cloudflare"
       version = "~> 3.0"
     }
-
   }
-
   required_version = ">= 0.14.9"
 }
-
 
 
 provider "aws" {
