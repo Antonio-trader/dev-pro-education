@@ -14,8 +14,8 @@ def parse_arguments():
 
 
 def clear_ip(privat_ip):
-    ip = re.findall(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", privat_ip)
-    return ip[0]
+    """ This step return clear IP address """
+    return re.findall(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", privat_ip)[0]
 
 
 def make_config_file(path_to_sample_conf, private_ip, path_for_save_config):
