@@ -2,6 +2,7 @@
 
 # import subprocess
 import argparse
+import re
 # import json
 
 
@@ -39,6 +40,9 @@ def parse_arguments():
 #                 for var in buffer_dict.get("_meta").get("hostvars"):
 #                     if db_host == var:
 #                         return buffer_dict.get("_meta").get("hostvars").get(var).get("private_ip_address")
+def clear_ip(privat_ip):
+    ip = re.findall(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", privat_ip)
+    return ip[0]
 
 
 def make_config_file(path_to_sample_conf, private_ip, path_for_save_config):
@@ -54,6 +58,8 @@ def main():
     # buffer = get_aws_ec2_buffer(args.aws_ec2)
     # tag, buffer_dict = parse_buffer(buffer)
     # private_ip = get_db_ip(tag=tag, buffer_dict=buffer_dict)
+    ip = clear_ip(args.privat_ip)
+    print(ip)
     make_config_file(path_to_sample_conf=args.sample, path_for_save_config=args.config, private_ip=args.private_ip)
     # print(args.private_ip)
 
