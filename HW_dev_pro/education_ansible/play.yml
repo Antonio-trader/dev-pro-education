@@ -3,6 +3,7 @@
   hosts:
     - tag_name_myadmin
     - tag_name_app_server
+  gather_facts: yes
   become: true
   become_method: sudo
   roles:
@@ -11,6 +12,7 @@
 
 - name: Install PhpMyAdmin
   hosts: tag_name_myadmin
+  gather_facts: yes
   become: yes
   become_method: sudo
   roles:
@@ -19,6 +21,7 @@
 
 - name: Install MariaDB
   hosts: tag_name_db
+  gather_facts: yes
   become: yes
   become_method: sudo
   roles:

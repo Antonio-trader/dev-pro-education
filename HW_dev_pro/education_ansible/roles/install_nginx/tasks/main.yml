@@ -4,4 +4,4 @@
   command: amazon-linux-extras install -y nginx1
   notify: nginx_systemd
   when:
-    - { ansible_distribution == "Amazon" }
+    ansible_distribution == "Amazon"
