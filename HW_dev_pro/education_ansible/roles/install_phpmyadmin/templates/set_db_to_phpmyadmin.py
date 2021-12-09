@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 
-# import subprocess
 import argparse
 import re
-# import json
 
 
 def parse_arguments():
@@ -15,31 +13,6 @@ def parse_arguments():
     return parser.parse_args()
 
 
-# def get_aws_ec2_buffer(path_to_aws_ec2):
-#     """ Get all balancers """
-#     output = subprocess.run(["ansible-inventory", "-i", f"{path_to_aws_ec2}", "--list"], capture_output=True, text=True,)
-#     return output.stdout
-
-
-# def parse_buffer(buffer):
-#     with open("test_error.txt", "w") as w:
-#         w.write(buffer)
-
-#     my_dictionary = json.loads(buffer)
-#     if my_dictionary:
-#         for tag in my_dictionary:
-#             if "db" in tag:
-#                 return my_dictionary[tag].get("hosts"), my_dictionary
-
-
-# def get_db_ip(tag, buffer_dict):
-#     if tag and buffer_dict:
-#         if isinstance(tag, list):
-#             db_host = tag[0]
-#             for _ in buffer_dict:
-#                 for var in buffer_dict.get("_meta").get("hostvars"):
-#                     if db_host == var:
-#                         return buffer_dict.get("_meta").get("hostvars").get(var).get("private_ip_address")
 def clear_ip(privat_ip):
     ip = re.findall(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}", privat_ip)
     return ip[0]
@@ -54,14 +27,9 @@ def make_config_file(path_to_sample_conf, private_ip, path_for_save_config):
 
 def main():
     args = parse_arguments()
-
-    # buffer = get_aws_ec2_buffer(args.aws_ec2)
-    # tag, buffer_dict = parse_buffer(buffer)
-    # private_ip = get_db_ip(tag=tag, buffer_dict=buffer_dict)
     ip = clear_ip(args.privat_ip)
+    make_config_file(path_to_sample_conf=args.sample, path_for_save_config=args.config, private_ip=ip)
     print(ip)
-    make_config_file(path_to_sample_conf=args.sample, path_for_save_config=args.config, private_ip=args.private_ip)
-    # print(args.private_ip)
 
 
 if __name__ == "__main__":
