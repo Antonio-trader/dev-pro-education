@@ -52,7 +52,7 @@
     extra_opts: [--strip-components=1]
 
 - name: Get host's ip
-  local_action: shell aws ec2 describe-instances --region eu-central-1 --filters 'Name=tag:Name,Values=db' --query 'Reservations[0].Instances[0].PrivateIpAddress'
+  local_action: shell aws ec2 describe-instances --region eu-central-1 --filters 'Name=tag:Name,Values=db' --query 'Reservations[*].Instances[0].PrivateIpAddress'
   register: db_ip
 
 - name: Run python script and make config file for phpMyadmin
