@@ -51,20 +51,22 @@
     remote_src: yes
     extra_opts: [--strip-components=1]
 
-# - name: Run python script and make config file for phpMyadmin
-#   local_action: shell '{{ path_to_python_script }}/set_db_to_phpmyadmin.py' --aws_ec2 '{{ path_to_aws_ec_2 }}' --sample '{{ path_to_python_script }}/config.sample.inc.php' --config '{{ path_to_python_script }}/config.inc.php'
-
 - name: Get host's ip
   local_action: shell aws ec2 describe-instances --region eu-central-1 --filters 'Name=tag:Name,Values=db' --query 'Reservations[0].Instances[0].PrivateIpAddress'
   register: db_ip
 
+- name: Run python script and make config file for phpMyadmin
+  local_action: shell '{{ path_to_python_script }}/set_db_to_phpmyadmin.py' --privat_ip '{{ db_ip.stdout }}' --sample '{{ path_to_python_script }}/config.sample.inc.php' --config '{{ path_to_python_script }}/config.inc.php'
+
+
+
 # - name: write ip ].PrivateIpAddress'
-#   local_action: shell echo "{{ db_hostname.stdout }}" > /home/local/DO/anton.lukashov/PycharmProjects/dev_pro_education/education/HW_dev_pro/education_ansible/roles/install_phpmyadmin/templates/id_addr.txt
+#   local_action: shell echo "{{ db_ip.stdout }}" > /home/local/DO/anton.lukashov/PycharmProjects/dev_pro_education/education/HW_dev_pro/education_ansible/roles/install_phpmyadmin/templates/id_addr.txt
 
 - name: Set config file to
   ansible.builtin.copy:
-    src: templates/config.sample.inc.php.j2
-    dest: '{{ dest_dir }}/phpMyAdmin/config.inc.php'
+    src: templates/config.inc.php
+    dest: '{{ dest_dir }}/phpMyAdmin'
     mode: '0775'
   notify:
     - nginx_restart
