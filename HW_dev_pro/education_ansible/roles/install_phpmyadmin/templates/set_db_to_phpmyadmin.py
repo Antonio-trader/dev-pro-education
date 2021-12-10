@@ -48,7 +48,7 @@ def make_config_file(path_to_sample_conf, private_ip, path_for_save_config):
 
 def main():
     args = parse_arguments()
-    ip = clear_ip(args.privat_ip)
+    ip = clear_ip(args.private_ip)
     make_config_file(path_to_sample_conf=args.sample, path_for_save_config=args.config, private_ip=ip)
 
 
