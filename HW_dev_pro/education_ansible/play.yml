@@ -1,0 +1,20 @@
+---
+- name: Install Nginx
+  hosts:
+    - tag_name_myadmin
+    - tag_name_app_server
+  become: true
+  become_method: sudo
+  roles:
+    - role: install_nginx
+      tags: nginx
+
+- name: Install MariaDB
+  hosts: tag_name_myadmin
+  become: yes
+  become_method: sudo
+  roles:
+    - role: install_mariadb
+      tags: mariadb
+    - role: install_phpmyadmin
+      tags: phpmyadmin

@@ -1,0 +1,47 @@
+---
+
+- name: Create '{{ group }}' group
+  ansible.builtin.group:
+    name: '{{ group }}'
+    state: present
+
+- name: Add the user '{{ user }}' to the group '{{ group }}'
+  ansible.builtin.user:
+    name: '{{ user }}'
+    groups: '{{ group }}'
+    append: yes
+
+- name: Change file ownership, group and permissions
+  ansible.builtin.file:
+    path: '{{ dest_dir }}'
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '2775'
+
+- name: Install a list of packages (php-mbstring php-xml)
+  become: yes
+  yum:
+    name:
+      - php-mbstring
+      - php-xml
+    state: present
+  notify:
+    - nginx_restart
+    - php_fpm_restart
+  when:
+    - { ansible_distribution == "Amazon" }
+
+- name: Make directory for phpMyadmin
+  ansible.builtin.file:
+    path: '{{ dest_dir }}/phpMyAdmin'
+    state: directory
+    owner: '{{ user }}'
+    group: '{{ group }}'
+    mode: '0775'
+
+- name: Unarchive a file that needs to be downloaded
+  ansible.builtin.unarchive:
+    src: '{{ url_phpmyadmin }}'
+    dest: '{{ dest_dir }}/phpMyAdmin'
+    remote_src: yes
+    extra_opts: [--strip-components=1]

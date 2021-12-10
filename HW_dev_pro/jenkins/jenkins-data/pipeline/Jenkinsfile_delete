@@ -1,0 +1,15 @@
+
+pipeline {
+    agent none
+
+    stages {
+        stage ('delete terraform') {
+        agent {
+            label 'Trinity'
+        }
+        steps {
+            sh 'cd /root/git_repo/HW_dev_pro/education_terraform/HW_terraform_code_without_modules && terraform destroy -auto-approve'
+            }
+        }
+    }
+}

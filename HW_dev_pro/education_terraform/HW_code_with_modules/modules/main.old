@@ -1,0 +1,10 @@
+provider "aws" {
+  region = "eu-central-1"
+}
+
+module "vm_module" {
+  source = "./ec2_instance"
+  ami = "ami-047e03b8591f2d48a"
+  instancetype = "t2.micro"
+  vmname = "myvm001"
+}

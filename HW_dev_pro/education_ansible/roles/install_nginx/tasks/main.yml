@@ -1,0 +1,7 @@
+---
+
+- name: Install Nginx on Amazon Linux
+  command: amazon-linux-extras install -y nginx1
+  notify: nginx_systemd
+  when:
+    - { ansible_distribution == "Amazon" }

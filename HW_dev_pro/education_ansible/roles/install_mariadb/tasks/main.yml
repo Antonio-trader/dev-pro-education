@@ -1,0 +1,15 @@
+---
+
+- name: Install LAMP
+  command: sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+  when:
+    - { ansible_distribution == "Amazon" }
+
+- name: Install MariaDB
+  yum:
+    name: mariadb-server
+    state: present
+  notify:
+    MariaDB
+  when:
+    - { ansible_distribution == "Amazon" }

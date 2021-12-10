@@ -1,0 +1,7 @@
+url_phpmyadmin: https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
+dest_dir: /usr/share/nginx/html
+php_distr: phpMyAdmin-latest-all-languages.tar.gz
+user: ec2-user
+group: www
+pattern: phpMyAdmin*
+dir_for_download: /tmp/myadmin
