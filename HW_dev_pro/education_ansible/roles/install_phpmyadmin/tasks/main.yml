@@ -56,7 +56,7 @@
   register: db_ip
 
 - name: Run python script and make config file for phpMyadmin
-  local_action: shell '{{ path_to_python_script }}/set_db_to_phpmyadmin.py' --privat_ip '{{ db_ip.stdout }}' --sample '{{ path_to_python_script }}/config.sample.inc.php' --config '{{ path_to_python_script }}/config.inc.php'
+  local_action: shell '{{ path_to_python_script }}/set_db_to_phpmyadmin.py' --private_ip '{{ db_ip.stdout }}' --sample '{{ path_to_python_script }}/config.sample.inc.php' --config '{{ path_to_python_script }}/config.inc.php'
 
 - name: Set config file to
   ansible.builtin.copy:

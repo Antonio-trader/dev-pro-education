@@ -1,4 +1,3 @@
-[//]: # (![img.png]&#40;https://github.com/Antonio-trader/dev-pro-education/blob/master/scheme.png&#41;)
 ![Screenshot](scheme.png)
 
 This schema has information about architecture of project
