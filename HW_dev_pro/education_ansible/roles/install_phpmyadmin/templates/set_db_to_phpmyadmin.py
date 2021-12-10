@@ -6,8 +6,8 @@ import re
 
 def parse_arguments():
     """
-    This function pars arguments of command line
-    :return: arguments in string format
+    This function pars arguments from command line
+    :return: all arguments in string format
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('-ip', '--private_ip', help='Set privat ip address', required=True)
@@ -20,7 +20,7 @@ def clear_ip(private_ip):
     """
     This step finds IP addresses in buffer
     The function return list of IP addresses,
-    or list of one ip address
+    or list of only one ip address
     """
     # pattern of ip address
     pattern = r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
@@ -29,9 +29,9 @@ def clear_ip(private_ip):
 
 def make_config_file(path_to_sample_conf, private_ip, path_for_save_config):
     """
-    This function checks if exist ip address,
+    This function checks if exist ip address in list,
     after that the function parses sample config file for PhpMyAdmin
-    and replaces localhost to ip address
+    and replaces localhost to ip address of DB, in config file for PhpMyAdmin.
     At least this function makes new config file with current DB's ip address.
     ###############
     :param path_to_sample_conf: Absolute path to the config's sample
