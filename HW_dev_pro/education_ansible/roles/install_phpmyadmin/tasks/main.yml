@@ -21,7 +21,7 @@
 - name: Install lamp-mariadb10.2-php7.2 and php7.2
   command: sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
   when:
-    - { ansible_distribution == "Amazon" }
+    ansible_distribution == "Amazon"
 
 - name: Install a list of packages (php-mbstring php-xml)
   become: yes
@@ -34,7 +34,7 @@
     - nginx_restart
     - php_fpm_restart
   when:
-    - { ansible_distribution == "Amazon" }
+    ansible_distribution == "Amazon"
 
 - name: Make directory for phpMyadmin
   ansible.builtin.file:
@@ -51,8 +51,12 @@
     remote_src: yes
     extra_opts: [--strip-components=1]
 
+- name: Get host's ip
+  local_action: shell aws ec2 describe-instances --region eu-central-1 --filters 'Name=tag:Name,Values=db' --query 'Reservations[*].Instances[0].PrivateIpAddress'
+  register: db_ip
+
 - name: Run python script and make config file for phpMyadmin
-  local_action: shell '{{ path_to_python_script }}/set_db_to_phpmyadmin.py' --aws_ec2 '{{ path_to_aws_ec_2 }}' --sample '{{ path_to_python_script }}/config.sample.inc.php' --config '{{ path_to_python_script }}/config.inc.php'
+  local_action: shell '{{ path_to_python_script }}/set_db_to_phpmyadmin.py' --private_ip '{{ db_ip.stdout }}' --sample '{{ path_to_python_script }}/config.sample.inc.php' --config '{{ path_to_python_script }}/config.inc.php'
 
 - name: Set config file to
   ansible.builtin.copy:
